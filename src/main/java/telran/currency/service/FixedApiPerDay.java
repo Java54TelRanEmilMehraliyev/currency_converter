@@ -47,7 +47,7 @@ public class FixedApiPerDay extends AbstractCurrencyConvertor {
 		return super.weakestCurrencies(amount);
 	}
 	@Override
-	public double convert(String codeFrom, String codeTo, int amount) {
+	public double convert(String codeFrom, String codeTo, double amount) {
 		refresh();
 		return super.convert(codeFrom, codeTo, amount);
 	}
@@ -64,7 +64,7 @@ public class FixedApiPerDay extends AbstractCurrencyConvertor {
 	}
 	@Override
 	public HashSet<String> getAllCodes() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new HashSet<>(rates.keySet());
 	}
 	}

@@ -23,7 +23,7 @@ public abstract class AbstractCurrencyConvertor implements CurrencyConvertor {
 	}
 
 	@Override
-	public double convert(String codeFrom, String codeTo, int amount) {
+	public double convert(String codeFrom, String codeTo, double amount) {
 		double rateFrom = rates.getOrDefault(codeFrom, 1.0);
 		double rateTo = rates.getOrDefault(codeTo, 1.0);
 		return amount * (rateTo / rateFrom);

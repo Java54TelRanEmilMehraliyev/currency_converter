@@ -24,8 +24,10 @@ public class CurrencyItems {
 		            io.writeLine("Weakest currencies: " + weakest);
 		        }),
 		        Item.of("Convert Currency", io -> {
-		        	String fromCurrency = io.readString("Enter the source currency code (e.g., USD)");
-	                String toCurrency = io.readString("Enter the target currency code (e.g., EUR)");
+		        	HashSet<String> codes = currencyConvertor.getAllCodes();
+		        	io.writeLine("Available currency codes: " + codes);
+		        	String fromCurrency = io.readStringOptions("Choose the source currency code","Invalid currency code",codes);
+	                String toCurrency = io.readStringOptions("Choose the target currency code","Invalid currency code",codes);
 	                double amount = io.readDouble("Enter the amount to convert", "Invalid input");
 
 	                double result = currencyConvertor.convert(fromCurrency, toCurrency, amount);

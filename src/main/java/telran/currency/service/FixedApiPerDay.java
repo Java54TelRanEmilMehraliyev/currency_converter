@@ -14,6 +14,7 @@ public class FixedApiPerDay extends AbstractCurrencyConvertor {
 	   protected String uriString = "http://data.fixer.io/api/latest?access_key=49c071d0e1955e57831f9a34432b69c3";
 	   private long lastUpdateTimestamp = 0;
 	   //DONE additional encapsulation fields
+	   
 	   public FixedApiPerDay() {
 		   rates = getRates();
 	   }
@@ -26,7 +27,8 @@ public class FixedApiPerDay extends AbstractCurrencyConvertor {
 			HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 			JSONObject jsonObject = new JSONObject(response.body());
 		    JSONObject jsonRates = jsonObject.getJSONObject("rates");
-		
+		    lastUpdateTimestamp = jsonObject.getLong("timestamp");
+		    
 		    HashMap<String, Double> ratesMap = new HashMap<>();
 		    for(String key : jsonRates.keySet()) {
 		    	ratesMap.put(key, jsonRates.getDouble(key));
@@ -59,7 +61,6 @@ public class FixedApiPerDay extends AbstractCurrencyConvertor {
 		long currentTimestamp = System.currentTimeMillis() / 1000l;
 		if (currentTimestamp - lastUpdateTimestamp >= 86400) {
 			rates = getRates();
-            lastUpdateTimestamp = currentTimestamp;
 		}
 	}
 	@Override
